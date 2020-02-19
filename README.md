@@ -1,15 +1,18 @@
-# Warning: Code is oogly
 
-<img src="https://i.imgur.com/sc45lWi.png">
 
 # My Little Man Computer
 This is a clone of the little man computer made by: Dr. Stuart Madnick
+
 Based off: https://www.101computing.net/LMC/
 Wikipedia: https://en.wikipedia.org/wiki/Little_man_computer
+
+<img src="https://i.imgur.com/sc45lWi.png">
 
 # Differences
 This version of the computer has a different way of parsing user programs,
 requiring the user to specify a line number for each instruction.
+
+### Warning: Code is oogly
 
 # Codes
 <table>
