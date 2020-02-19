@@ -21,14 +21,6 @@ var counter = 0;
 var halted = false;
 var runHandle = 0;
 
-function clearLineNumers()
-{
-    $('#line-num').html("");
-    const span = document.createElement('span');
-    span.innerHTML = 1;
-    $('#line-num').append(span);
-}
-
 $(() =>
 {
     // Populate Memory Cells
@@ -48,9 +40,6 @@ $(() =>
         document.getElementById('memory').append(cell);
         cells.push(cellMem);
     }
-
-    //$('#code').val("");
-    clearLineNumers();
 });
 
 // Coding Text Area
@@ -130,66 +119,50 @@ $('#load').click(event =>
     {
         const tokens = lines[i].split(/[ ,\t]+/);
 
-        if (tokens.length > 1)
+        if (!(tokens[0] in opCodes))
         {
-            if (!(tokens[1] in opCodes))
-            {
-                logParseError(i, "Not a valid operation!");
-                return;
-            }
-
-            if (!isNaN(tokens[0]))
-            {
-                var opCode = opCodes[tokens[1]];
-
-                // CHECK FOR ARGUMENTS
-                if (tokens.length > 2)
-                {
-                    switch (opCode)
-                    {
-                        case opCodes.DAT:
-                            if (!isNaN(tokens[2]))
-                                opCode = "[" + tokens[2] + "]"; 
-                            break;
-
-                        case opCodes.BRA:
-                        case opCodes.BRZ:
-                        case opCodes.BRP:
-                        case opCodes.ADD:
-                        case opCodes.SUB:
-                        case opCodes.LDA:
-                        case opCodes.STA:
-                            if (!isNaN(tokens[2].substr(1)) && 
-                                tokens[2][0] == '$') 
-                            {
-                                var memPtr = tokens[2].substr(1);
-                                if (parseInt(memPtr) < 10) memPtr = "0" + memPtr;
-                                opCode += memPtr;
-                            }
-                            else {
-                                logParseError(i, "Argument is not a memory address!");
-                                return;
-                            }
-                            break;
-    
-                        default:
-                            break;
-                    }
-                }
-
-                cells[tokens[0]].innerHTML = opCode;
-            }
-            else 
-            {
-                logParseError(i, "Label is not a number!");
-                return;
-            }
-        }
-        else 
-        {
-            logParseError(i, "Could not parse!");
+            logParseError(i, "Not a valid operation!");
             return;
         }
+
+        var opCode = opCodes[tokens[0]];
+
+        // CHECK FOR ARGUMENTS
+        if (tokens.length > 1)
+        {
+            switch (opCode)
+            {
+                case opCodes.DAT:
+                    if (!isNaN(tokens[1]))
+                        opCode = "[" + tokens[1] + "]"; 
+                    break;
+
+                case opCodes.BRA:
+                case opCodes.BRZ:
+                case opCodes.BRP:
+                case opCodes.ADD:
+                case opCodes.SUB:
+                case opCodes.LDA:
+                case opCodes.STA:
+                    if (!isNaN(tokens[1].substr(1)) && 
+                        tokens[1][0] == '$') 
+                    {
+                        var memPtr = tokens[1].substr(1);
+                        if (parseInt(memPtr) < 10) memPtr = "0" + memPtr;
+                        opCode += memPtr;
+                    }
+                    else {
+                        logParseError(i, "Argument is not a memory address!");
+                        return;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        cells[i].innerHTML = opCode;
     }
 });
 
@@ -237,7 +210,12 @@ function step()
                 case opCodes.SUB: accum -= parseInt(value); break;
     
                 case opCodes.STA: cells[memPtr].innerHTML = accum; break;
-                case opCodes.LDA: accum = cells[memPtr].innerHTML; break;
+                case opCodes.LDA:
+                    var newAccum = cells[memPtr].innerHTML;
+                    if (cells[memPtr].innerHTML[0] == "[")
+                        newAccum = newAccum.substr(1, newAccum.length - 2);
+                    accum = parseInt(newAccum); 
+                    break;
     
                 case opCodes.BRZ:
                     if (accum == 0)
@@ -274,14 +252,14 @@ function step()
     counter++;
 }
 
-$('stop').click(event => {
+$('#stop').click(event => {
     haltProgram();
 });
 
 $('#run').click(event => 
 {
     clearInterval(runHandle);
-    runHandle = setInterval(step, 1000);
+    runHandle = setInterval(step, 250);
 });
 
 $('#step').click(event => {
