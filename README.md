@@ -1,3 +1,5 @@
+# Warning: Code is oogly
+
 <img src="https://i.imgur.com/sc45lWi.png">
 
 # My Little Man Computer
