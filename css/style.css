@@ -1,0 +1,176 @@
+* {
+  font-family: 'Fira Sans', monospace;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #333232;
+  color: white;
+}
+
+#littleman {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto auto auto;
+      grid-template-columns: auto auto auto;
+  height: 85vh;
+}
+
+#editor {
+  height: 100%;
+  -ms-grid-rows: 90% 10%;
+      grid-template-rows: 90% 10%;
+  display: -ms-grid;
+  display: grid;
+}
+
+#notepad {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+#notepad #code {
+  resize: none;
+  border: 0;
+  margin: 0;
+  background: rgba(0, 0, 0, 0.2);
+  caret-color: white;
+  color: white;
+  font-size: 32px;
+  -moz-tab-size: 4;
+    -o-tab-size: 4;
+       tab-size: 4;
+}
+
+#controls {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#controls button {
+  width: 50%;
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  border: 0;
+}
+
+#controls button:hover {
+  background: rgba(0, 0, 0, 0.4);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#io {
+  background: rgba(0, 0, 0, 0.1);
+  width: 15vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+#io div {
+  background: rgba(0, 0, 0, 0.1);
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  width: 94%;
+  height: 32%;
+}
+
+#io span {
+  display: inline-block;
+  font-size: 24px;
+  background: rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 32px;
+  text-align: center;
+}
+
+#io p {
+  margin: 10px;
+  font-size: 24px;
+}
+
+#registers {
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+#registers #console {
+  width: 100%;
+  color: red;
+}
+
+#memory {
+  width: 50vw;
+  background: rgba(0, 0, 0, 0.1);
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (auto)[10];
+      grid-template-columns: repeat(10, auto);
+  -ms-grid-rows: (auto)[10];
+      grid-template-rows: repeat(10, auto);
+}
+
+.mem-cell {
+  width: 100%;
+  height: 100%;
+}
+
+.mem-cell span {
+  background: rgba(0, 0, 0, 0.1);
+  font-weight: bold;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  height: 25%;
+}
+
+.mem-cell div {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.2);
+  height: 75%;
+  font-size: 24px;
+}
+
+.active-cell {
+  background-color: rgba(0, 0, 255, 0.2);
+}
+/*# sourceMappingURL=style.css.map */
