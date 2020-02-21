@@ -350,6 +350,8 @@ let inputBox = document.getElementById("inputText");
 let outputBox = document.getElementById("outputText");
 let consoleBox = document.getElementById("console");
 
+let notepad = document.getElementById('notepad');
+
 // Registers
 let accumulator = document.getElementById('accum');
 let pc = document.getElementById('counter');
@@ -427,6 +429,89 @@ function stepComputer()
     updateRegisters();
 }
 
+function updateLineNumbers()
+{
+    let lines = document.getElementsByClassName('line');
+    for (let i = 0; i < lines.length; i++)
+    {
+        let num = i.toString();
+        if (i < 10) num = "0" + num;
+        lines[i].children[0].innerHTML = num;
+    }
+}
+
+function createLine(index: number): HTMLInputElement | null
+{
+    if (notepad != undefined && notepad.children.length > 99)
+        return null;
+
+    const line = document.createElement('div');
+    const number = document.createElement('span');
+    const input = document.createElement('input');
+
+    line.append(number);
+    line.append(input);
+    
+    input.classList.add('line-input');
+    line.classList.add('line');
+
+    notepad?.insertBefore(line, notepad.children[index]);
+
+    input.addEventListener('keydown', event =>
+    {
+        function focusLine(lineNumber: number) 
+        {
+            let lastLine = notepad?.children[lineNumber];
+            if (lastLine != undefined)
+                (<HTMLInputElement>lastLine.children[1]).focus();
+        }
+
+        var sel = input.selectionStart;
+
+        // Support for Tabbing
+        if (sel != undefined && event.keyCode == 9) 
+        {
+            let oldSel = sel;
+            input.value = input.value.substr(0, sel) + "\t" +
+                input.value.substr(sel);
+            input.selectionStart = oldSel + 1;
+            input.selectionEnd = input.selectionStart;
+            event.preventDefault();
+        }
+
+        let lineNum = parseInt(line.children[0].innerHTML);
+
+        // Making new lines
+        if (event.keyCode == 13)
+        {
+            let newLine = createLine(lineNum + 1);
+            newLine?.focus();
+        }
+
+        // Removing Lines
+        if (lineNum > 0)
+        {
+            if (event.keyCode == 8 && input.value.length == 0)
+            {
+                focusLine(lineNum - 1);
+                notepad?.removeChild(line);
+                updateLineNumbers();
+
+                event.preventDefault();
+            }
+        }
+
+        // Up Arrow
+        if (event.keyCode == 38) { focusLine(lineNum - 1); }
+
+        // Down Arrow
+        if (event.keyCode == 40) { focusLine(lineNum + 1); }
+    });
+
+    updateLineNumbers();
+    return input;
+}
+
 // EVENTS
 
 window.onload = () =>
@@ -448,15 +533,32 @@ window.onload = () =>
         if (memory != null) memory.append(cell);
         cells.push(cellMem);
     }
+
+    for (let i = 0; i < 99; i++)
+    {
+        let storedLine = localStorage.getItem(`line${i}`);
+        if (storedLine != null)
+        {
+            let line = createLine(i);
+            if (line != null) {
+                (<HTMLInputElement>line).value = storedLine;
+            }
+        }
+    }
+
+    localStorage.clear();
+
+    if (notepad != undefined && notepad.children.length == 0)
+        createLine(0);
 };
 
-document.getElementById('code')
-    ?.addEventListener('keydown', event =>
+window.addEventListener('unload', () => 
 {
-    const text = document.getElementById('code');
-    if ((event.keyCode || event.which) != 9) return;
-    (<HTMLTextAreaElement>text).value += "\t";
-    event.preventDefault();
+    let lineElems = <HTMLCollectionOf<HTMLInputElement>>document
+        .getElementsByClassName('line-input');
+    for (let i = 0; i < lineElems.length; i++) {
+        localStorage.setItem(`line${i}`, lineElems[i].value);
+    }
 });
 
 document.getElementById('load')
@@ -464,18 +566,18 @@ document.getElementById('load')
 {
     resetComputer();
 
-    // Parse and Load Program to Computer
-    let codeArea = document.getElementById('code');
-    let value = (<HTMLTextAreaElement>codeArea).value;
-    let lines = value.split('\n');
+    // Get all lines
+    let lineElems = <HTMLCollectionOf<HTMLInputElement>>document
+        .getElementsByClassName('line-input');
+    let lines: string[] = [];
 
     // Remove all empty lines and comments
-    for (let i = 0; i < lines.length; i++)
+    for (let i = 0; i < lineElems.length; i++)
     {
-        if (/^\s*$/.test(lines[i]) || lines[i].includes('#'))
+        if (!(/^\s*$/.test(lineElems[i].value) || 
+            lineElems[i].value.includes('#')))
         {
-            lines.splice(i, 1);
-            i--;
+            lines.push(lineElems[i].value);
         }
     }
 
@@ -487,6 +589,8 @@ document.getElementById('load')
 document.getElementById('run')
     ?.addEventListener('click', () =>
 {
+    if (state.programHalted) return;
+
     stepComputer();
     runningHandle = setInterval(() => stepComputer(), 
         state.clockSpeed);
@@ -500,7 +604,9 @@ document.getElementById('stop')
 });
 
 document.getElementById('step')
-    ?.addEventListener('click', () => {
+    ?.addEventListener('click', () => 
+{
+    if (state.programHalted) return;
     stepComputer();
 });
 

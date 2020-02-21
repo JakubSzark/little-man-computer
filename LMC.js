@@ -7,7 +7,7 @@
  * [Credit]: Dr. Stuart Madnick
  * [Wiki]: https://en.wikipedia.org/wiki/Little_man_computer
 */
-var _a, _b, _c, _d, _e, _f;
+var _a, _b, _c, _d, _e;
 // Standard OP Codes for LMC
 const operationCodes = {
     "INP": 901,
@@ -262,6 +262,7 @@ let runningHandle = 0;
 let inputBox = document.getElementById("inputText");
 let outputBox = document.getElementById("outputText");
 let consoleBox = document.getElementById("console");
+let notepad = document.getElementById('notepad');
 // Registers
 let accumulator = document.getElementById('accum');
 let pc = document.getElementById('counter');
@@ -319,6 +320,72 @@ function stepComputer() {
     }, () => log("PROGRAM HALTED!"));
     updateRegisters();
 }
+function updateLineNumbers() {
+    let lines = document.getElementsByClassName('line');
+    for (let i = 0; i < lines.length; i++) {
+        let num = i.toString();
+        if (i < 10)
+            num = "0" + num;
+        lines[i].children[0].innerHTML = num;
+    }
+}
+function createLine(index) {
+    var _a;
+    if (notepad != undefined && notepad.children.length > 99)
+        return null;
+    const line = document.createElement('div');
+    const number = document.createElement('span');
+    const input = document.createElement('input');
+    line.append(number);
+    line.append(input);
+    input.classList.add('line-input');
+    line.classList.add('line');
+    (_a = notepad) === null || _a === void 0 ? void 0 : _a.insertBefore(line, notepad.children[index]);
+    input.addEventListener('keydown', event => {
+        var _a, _b;
+        function focusLine(lineNumber) {
+            var _a;
+            let lastLine = (_a = notepad) === null || _a === void 0 ? void 0 : _a.children[lineNumber];
+            if (lastLine != undefined)
+                lastLine.children[1].focus();
+        }
+        var sel = input.selectionStart;
+        // Support for Tabbing
+        if (sel != undefined && event.keyCode == 9) {
+            let oldSel = sel;
+            input.value = input.value.substr(0, sel) + "\t" +
+                input.value.substr(sel);
+            input.selectionStart = oldSel + 1;
+            input.selectionEnd = input.selectionStart;
+            event.preventDefault();
+        }
+        let lineNum = parseInt(line.children[0].innerHTML);
+        // Making new lines
+        if (event.keyCode == 13) {
+            let newLine = createLine(lineNum + 1);
+            (_a = newLine) === null || _a === void 0 ? void 0 : _a.focus();
+        }
+        // Removing Lines
+        if (lineNum > 0) {
+            if (event.keyCode == 8 && input.value.length == 0) {
+                focusLine(lineNum - 1);
+                (_b = notepad) === null || _b === void 0 ? void 0 : _b.removeChild(line);
+                updateLineNumbers();
+                event.preventDefault();
+            }
+        }
+        // Up Arrow
+        if (event.keyCode == 38) {
+            focusLine(lineNum - 1);
+        }
+        // Down Arrow
+        if (event.keyCode == 40) {
+            focusLine(lineNum + 1);
+        }
+    });
+    updateLineNumbers();
+    return input;
+}
 // EVENTS
 window.onload = () => {
     for (let i = 0; i < 100; i++) {
@@ -335,42 +402,58 @@ window.onload = () => {
             memory.append(cell);
         cells.push(cellMem);
     }
+    for (let i = 0; i < 99; i++) {
+        let storedLine = localStorage.getItem(`line${i}`);
+        if (storedLine != null) {
+            let line = createLine(i);
+            if (line != null) {
+                line.value = storedLine;
+            }
+        }
+    }
+    localStorage.clear();
+    if (notepad != undefined && notepad.children.length == 0)
+        createLine(0);
 };
-(_a = document.getElementById('code')) === null || _a === void 0 ? void 0 : _a.addEventListener('keydown', event => {
-    const text = document.getElementById('code');
-    if ((event.keyCode || event.which) != 9)
-        return;
-    text.value += "\t";
-    event.preventDefault();
+window.addEventListener('unload', () => {
+    let lineElems = document
+        .getElementsByClassName('line-input');
+    for (let i = 0; i < lineElems.length; i++) {
+        localStorage.setItem(`line${i}`, lineElems[i].value);
+    }
 });
-(_b = document.getElementById('load')) === null || _b === void 0 ? void 0 : _b.addEventListener('click', () => {
+(_a = document.getElementById('load')) === null || _a === void 0 ? void 0 : _a.addEventListener('click', () => {
     resetComputer();
-    // Parse and Load Program to Computer
-    let codeArea = document.getElementById('code');
-    let value = codeArea.value;
-    let lines = value.split('\n');
+    // Get all lines
+    let lineElems = document
+        .getElementsByClassName('line-input');
+    let lines = [];
     // Remove all empty lines and comments
-    for (let i = 0; i < lines.length; i++) {
-        if (/^\s*$/.test(lines[i]) || lines[i].includes('#')) {
-            lines.splice(i, 1);
-            i--;
+    for (let i = 0; i < lineElems.length; i++) {
+        if (!(/^\s*$/.test(lineElems[i].value) ||
+            lineElems[i].value.includes('#'))) {
+            lines.push(lineElems[i].value);
         }
     }
     let program = parse(lines, err => log(err));
     load(program);
     updateRegisters();
 });
-(_c = document.getElementById('run')) === null || _c === void 0 ? void 0 : _c.addEventListener('click', () => {
+(_b = document.getElementById('run')) === null || _b === void 0 ? void 0 : _b.addEventListener('click', () => {
+    if (state.programHalted)
+        return;
     stepComputer();
     runningHandle = setInterval(() => stepComputer(), state.clockSpeed);
 });
-(_d = document.getElementById('stop')) === null || _d === void 0 ? void 0 : _d.addEventListener('click', () => {
+(_c = document.getElementById('stop')) === null || _c === void 0 ? void 0 : _c.addEventListener('click', () => {
     clearInterval(runningHandle);
     halt(() => log("PROGRAM HALTED!"));
 });
-(_e = document.getElementById('step')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', () => {
+(_d = document.getElementById('step')) === null || _d === void 0 ? void 0 : _d.addEventListener('click', () => {
+    if (state.programHalted)
+        return;
     stepComputer();
 });
-(_f = document.getElementById('docs')) === null || _f === void 0 ? void 0 : _f.addEventListener('click', () => {
+(_e = document.getElementById('docs')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', () => {
     window.location.href = "https://github.com/JakubSzark/jakubs-little-man-computer";
 });

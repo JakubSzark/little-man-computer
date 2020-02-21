@@ -29,7 +29,7 @@ body {
 }
 
 // ====================================
-// NOTEPAD
+// EDITOR
 // ====================================
 
 #editor {
@@ -38,21 +38,49 @@ body {
     display: grid;
 }
 
-#notepad {
-    display: flex;
-    flex-direction: row;
+// ====================================
+// NOTEPAD
+// ====================================
 
-    #code {
-        resize: none;
-        border: 0;
-        margin: 0;
-        background: $darker;
-        caret-color: white;
-        color: white;
+#notepad {
+    background: $darker;
+    width: 100%;
+    overflow-y: scroll;
+    max-height: 80vh;
+}
+
+.line {
+    display: grid;
+    grid-template-columns: 15% auto;
+    width: 100%;
+    
+    span {
+        display: inline-block;
         font-size: 32px;
-        tab-size: 4;
+        text-align: center;
+        background: $darker;
     }
 }
+
+.line-input {
+    background: none;
+    border: 0;
+    font-size: 32px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    caret-color: white;
+    color: white;
+    tab-size: 4;
+
+    &:hover, &:focus {
+        background: $dark;
+    }
+}
+
+// ====================================
+// CONTROLS
+// ====================================
 
 #controls {
     width: 100%;
@@ -63,6 +91,10 @@ body {
         background: $darkest;
         color: white;
         border: 0;
+
+        img {
+            width: 48px;
+        }
 
         &:hover {
             background: $darkestest;

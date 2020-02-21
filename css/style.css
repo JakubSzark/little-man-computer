@@ -39,26 +39,43 @@ body {
 }
 
 #notepad {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  background: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  overflow-y: scroll;
+  max-height: 80vh;
 }
 
-#notepad #code {
-  resize: none;
-  border: 0;
-  margin: 0;
+.line {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 15% auto;
+      grid-template-columns: 15% auto;
+  width: 100%;
+}
+
+.line span {
+  display: inline-block;
+  font-size: 32px;
+  text-align: center;
   background: rgba(0, 0, 0, 0.2);
+}
+
+.line-input {
+  background: none;
+  border: 0;
+  font-size: 32px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   caret-color: white;
   color: white;
-  font-size: 32px;
   -moz-tab-size: 4;
     -o-tab-size: 4;
        tab-size: 4;
+}
+
+.line-input:hover, .line-input:focus {
+  background: rgba(0, 0, 0, 0.1);
 }
 
 #controls {
@@ -73,6 +90,10 @@ body {
   background: rgba(0, 0, 0, 0.3);
   color: white;
   border: 0;
+}
+
+#controls button img, #controls a img {
+  width: 48px;
 }
 
 #controls button:hover, #controls a:hover {
