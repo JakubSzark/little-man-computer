@@ -2,19 +2,18 @@
 
 # My Little Man Computer
 This is a clone of the little man computer made by: Dr. Stuart Madnick
-
-Based off: https://www.101computing.net/LMC/
-Wikipedia: https://en.wikipedia.org/wiki/Little_man_computer
+- Based off: https://www.101computing.net/LMC/
+- Wikipedia: https://en.wikipedia.org/wiki/Little_man_computer
 
 <img src="https://i.imgur.com/sc45lWi.png">
 
 # Differences
-This version of the computer has a different way of parsing user programs,
-requiring the user to specify a line number for each instruction.
+- Using $ for address arguments
+- Ability to make comment lines
 
-### Warning: Code is oogly
+# Documentation
 
-# Codes
+## Operation Codes
 <table>
   <tr>
     <th>Code</th>
@@ -78,13 +77,18 @@ requiring the user to specify a line number for each instruction.
   </tr>  
 </table>
 
-# Example
+## Comments
+```
+# This is how you do comments
+```
+
+## Example
 Program that takes a number input and prints 
 the number added to itself in an infinite loop.
 ```
-INP
-STA $99
-ADD $99
-OUT
-BRA $2
+      INP
+      STA $99
+loop  ADD $99
+      OUT
+      BRA loop
 ```
