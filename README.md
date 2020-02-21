@@ -85,7 +85,7 @@ requiring the user to specify a line number for each instruction.
 # This is how you do comments
 ```
 
-# Example
+## Example
 Program that takes a number input and prints 
 the number added to itself in an infinite loop.
 ```
