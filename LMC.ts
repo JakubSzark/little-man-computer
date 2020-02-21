@@ -402,6 +402,31 @@ function resetComputer()
     setActiveCell(0);
 }
 
+function stepComputer()
+{
+    step(() =>
+    {
+        let input = prompt("Enter an Input");
+
+        if (input != null)
+        {
+            if (inputBox != null)
+                inputBox.innerHTML += input.toString() + "\n";
+            return parseInt(input);
+        }
+
+        return 0;
+    }, 
+    out => 
+    {
+        if (outputBox != null) 
+            outputBox.innerHTML += out.toString() + "\n";
+    }, 
+    () => log("PROGRAM HALTED!"));
+
+    updateRegisters();
+}
+
 // EVENTS
 
 window.onload = () =>
@@ -459,37 +484,24 @@ document.getElementById('load')
     updateRegisters();
 });
 
+document.getElementById('run')
+    ?.addEventListener('click', () =>
+{
+    stepComputer();
+    runningHandle = setInterval(() => stepComputer(), 
+        state.clockSpeed);
+});
+
 document.getElementById('stop')
-    ?.addEventListener('stop', () =>
+    ?.addEventListener('click', () =>
 {
     clearInterval(runningHandle);
-    halt(() => {});
+    halt(() => log("PROGRAM HALTED!"));
 });
 
 document.getElementById('step')
-    ?.addEventListener('click', () =>
-{
-    step(() =>
-    {
-        let input = prompt("Enter an Input");
-
-        if (input != null)
-        {
-            if (inputBox != null)
-                inputBox.innerHTML += input.toString() + "\n";
-            return parseInt(input);
-        }
-
-        return 0;
-    }, 
-    out => 
-    {
-        if (outputBox != null) 
-            outputBox.innerHTML += out.toString() + "\n";
-    }, 
-    () => log("PROGRAM HALTED!"));
-
-    updateRegisters();
+    ?.addEventListener('click', () => {
+    stepComputer();
 });
 
 document.getElementById('docs')

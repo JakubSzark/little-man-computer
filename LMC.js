@@ -7,7 +7,7 @@
  * [Credit]: Dr. Stuart Madnick
  * [Wiki]: https://en.wikipedia.org/wiki/Little_man_computer
 */
-var _a, _b, _c, _d, _e;
+var _a, _b, _c, _d, _e, _f;
 // Standard OP Codes for LMC
 const operationCodes = {
     "INP": 901,
@@ -304,6 +304,21 @@ function resetComputer() {
         outputBox.innerHTML = "";
     setActiveCell(0);
 }
+function stepComputer() {
+    step(() => {
+        let input = prompt("Enter an Input");
+        if (input != null) {
+            if (inputBox != null)
+                inputBox.innerHTML += input.toString() + "\n";
+            return parseInt(input);
+        }
+        return 0;
+    }, out => {
+        if (outputBox != null)
+            outputBox.innerHTML += out.toString() + "\n";
+    }, () => log("PROGRAM HALTED!"));
+    updateRegisters();
+}
 // EVENTS
 window.onload = () => {
     for (let i = 0; i < 100; i++) {
@@ -345,25 +360,17 @@ window.onload = () => {
     load(program);
     updateRegisters();
 });
-(_c = document.getElementById('stop')) === null || _c === void 0 ? void 0 : _c.addEventListener('stop', () => {
+(_c = document.getElementById('run')) === null || _c === void 0 ? void 0 : _c.addEventListener('click', () => {
+    stepComputer();
+    runningHandle = setInterval(() => stepComputer(), state.clockSpeed);
+});
+(_d = document.getElementById('stop')) === null || _d === void 0 ? void 0 : _d.addEventListener('click', () => {
     clearInterval(runningHandle);
-    halt(() => { });
+    halt(() => log("PROGRAM HALTED!"));
 });
-(_d = document.getElementById('step')) === null || _d === void 0 ? void 0 : _d.addEventListener('click', () => {
-    step(() => {
-        let input = prompt("Enter an Input");
-        if (input != null) {
-            if (inputBox != null)
-                inputBox.innerHTML += input.toString() + "\n";
-            return parseInt(input);
-        }
-        return 0;
-    }, out => {
-        if (outputBox != null)
-            outputBox.innerHTML += out.toString() + "\n";
-    }, () => log("PROGRAM HALTED!"));
-    updateRegisters();
+(_e = document.getElementById('step')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', () => {
+    stepComputer();
 });
-(_e = document.getElementById('docs')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', () => {
+(_f = document.getElementById('docs')) === null || _f === void 0 ? void 0 : _f.addEventListener('click', () => {
     window.location.href = "https://github.com/JakubSzark/jakubs-little-man-computer";
 });
