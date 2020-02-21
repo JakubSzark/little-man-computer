@@ -2,9 +2,8 @@
 
 # My Little Man Computer
 This is a clone of the little man computer made by: Dr. Stuart Madnick
-
-Based off: https://www.101computing.net/LMC/
-Wikipedia: https://en.wikipedia.org/wiki/Little_man_computer
+- Based off: https://www.101computing.net/LMC/
+- Wikipedia: https://en.wikipedia.org/wiki/Little_man_computer
 
 <img src="https://i.imgur.com/sc45lWi.png">
 
