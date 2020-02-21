@@ -9,10 +9,8 @@ Wikipedia: https://en.wikipedia.org/wiki/Little_man_computer
 <img src="https://i.imgur.com/sc45lWi.png">
 
 # Differences
-This version of the computer has a different way of parsing user programs,
-requiring the user to specify a line number for each instruction.
-
-### Warning: Code is oogly
+- Using $ for address arguments
+- Ability to make comment lines
 
 # Documentation
 
