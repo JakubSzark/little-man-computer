@@ -14,7 +14,9 @@ requiring the user to specify a line number for each instruction.
 
 ### Warning: Code is oogly
 
-# Codes
+# Documentation
+
+## Operation Codes
 <table>
   <tr>
     <th>Code</th>
@@ -78,13 +80,18 @@ requiring the user to specify a line number for each instruction.
   </tr>  
 </table>
 
+## Comments
+```
+# This is how you do comments
+```
+
 # Example
 Program that takes a number input and prints 
 the number added to itself in an infinite loop.
 ```
-INP
-STA $99
-ADD $99
-OUT
-BRA $2
+      INP
+      STA $99
+loop  ADD $99
+      OUT
+      BRA loop
 ```
