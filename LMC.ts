@@ -491,3 +491,8 @@ document.getElementById('step')
 
     updateRegisters();
 });
+
+document.getElementById('docs')
+    ?.addEventListener('click', () => {
+    window.location.href = "https://github.com/JakubSzark/jakubs-little-man-computer";
+});

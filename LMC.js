@@ -7,7 +7,7 @@
  * [Credit]: Dr. Stuart Madnick
  * [Wiki]: https://en.wikipedia.org/wiki/Little_man_computer
 */
-var _a, _b, _c, _d;
+var _a, _b, _c, _d, _e;
 // Standard OP Codes for LMC
 const operationCodes = {
     "INP": 901,
@@ -363,4 +363,7 @@ window.onload = () => {
             outputBox.innerHTML += out.toString() + "\n";
     }, () => log("PROGRAM HALTED!"));
     updateRegisters();
+});
+(_e = document.getElementById('docs')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', () => {
+    window.location.href = "https://github.com/JakubSzark/jakubs-little-man-computer";
 });

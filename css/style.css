@@ -68,14 +68,14 @@ body {
   display: flex;
 }
 
-#controls button {
+#controls button, #controls a {
   width: 50%;
   background: rgba(0, 0, 0, 0.3);
   color: white;
   border: 0;
 }
 
-#controls button:hover {
+#controls button:hover, #controls a:hover {
   background: rgba(0, 0, 0, 0.4);
   font-weight: bold;
   cursor: pointer;
