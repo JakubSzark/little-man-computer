@@ -1,13 +1,14 @@
 $sectionColor: #252021;
 $containerColor: #1f1b1c;
 $darkest: #536271;
-$darkestest: #a68ba5;
+$darkestest: #3b3436;
 
 $activeColor: rgba(0, 0, 255, 0.4);
+$borderColor: rgba(255, 255, 255, 0.2);
+$bg-color: #191516;
 
 $defaultFontSize: 1.5rem;
 
-$bg-color: #191516;
 
 @mixin center-flex() {
     display: flex;
@@ -63,6 +64,8 @@ nav {
     grid-template-columns: 25% 25% auto;
     grid-column-start: 1;
     grid-column-end: 4;
+    border: 1px solid $borderColor;
+    background: none;
 
     p {
         display: block;
@@ -85,6 +88,7 @@ nav {
     width: 100%;
     display: flex;
     justify-content: right;
+    background: none;
     
     button, a {
         width: 50%;
@@ -114,7 +118,8 @@ nav {
 #notepad {
     width: 100%;
     overflow-y: scroll;
-    max-height: 80vh;
+    max-height: 85vh;
+    border: 1px solid $borderColor;
 }
 
 .line {
@@ -149,6 +154,8 @@ nav {
 
     @include center-flex();
 
+    border: 1px solid $borderColor;
+
     padding-left: 25px;
     padding-right: 25px;
     font-weight: bold;
@@ -161,14 +168,16 @@ nav {
 
 #io {
     display: grid;
-    grid-template-rows: 33.33% 33.33% 33.33%;
+    grid-template-rows: 33.33% 33.33% auto;
+    background: rgba(0, 0, 0, 0);
     width: 15vw;
-
+    gap: 5px;
     
     div {
         background: $containerColor;
         align-self: center;
         height: 100%;
+        border: 1px solid $borderColor;
     }
 
     span {
@@ -219,6 +228,8 @@ nav {
     display: grid;
     grid-template-rows: 25% 75%;
     max-width: 5vw;
+
+    border: 1px solid $borderColor;
 
     span {
         font-weight: bold;

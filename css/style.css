@@ -53,6 +53,8 @@ nav {
   -ms-grid-column: 1;
       grid-column-start: 1;
   grid-column-end: 4;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: none;
 }
 
 nav p {
@@ -87,6 +89,7 @@ nav #title {
   -webkit-box-pack: right;
       -ms-flex-pack: right;
           justify-content: right;
+  background: none;
 }
 
 #controls button, #controls a {
@@ -106,7 +109,7 @@ nav #title {
 #controls button:hover, #controls a:hover {
   -webkit-transition: background 0.1s;
   transition: background 0.1s;
-  background: #a68ba5;
+  background: #3b3436;
   font-weight: bold;
   cursor: pointer;
 }
@@ -114,7 +117,8 @@ nav #title {
 #notepad {
   width: 100%;
   overflow-y: scroll;
-  max-height: 80vh;
+  max-height: 85vh;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .line {
@@ -160,6 +164,7 @@ nav #title {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   padding-left: 25px;
   padding-right: 25px;
   font-weight: bold;
@@ -169,9 +174,11 @@ nav #title {
 #io {
   display: -ms-grid;
   display: grid;
-  -ms-grid-rows: 33.33% 33.33% 33.33%;
-      grid-template-rows: 33.33% 33.33% 33.33%;
+  -ms-grid-rows: 33.33% 33.33% auto;
+      grid-template-rows: 33.33% 33.33% auto;
+  background: rgba(0, 0, 0, 0);
   width: 15vw;
+  gap: 5px;
 }
 
 #io div {
@@ -180,6 +187,7 @@ nav #title {
       -ms-grid-row-align: center;
       align-self: center;
   height: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 #io span {
@@ -236,6 +244,7 @@ nav #title {
   -ms-grid-rows: 25% 75%;
       grid-template-rows: 25% 75%;
   max-width: 5vw;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .mem-cell span {
