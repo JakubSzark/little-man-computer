@@ -1,36 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Man Computer</title>
+    <!-- CSS and Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="css/style.css">
+    <!-- Scripts -->
     <script src="LMC.js" defer></script>
-    <title>Little Man Computer</title>
 </head>
 <body>
-    <section id="littleman">
-        <section id="title-bar">
+    <main>
+        <nav>
             <h1 id="title">Little Man Computer</h1>
             <p>Made by: Jakub Szarkowicz</p>
             <div id="controls">
-                <button id="load"><img src="images/Load.png" alt="Load"></button><br>
-                <button id="run"><img src="images/Run.png" alt="Run"></button>
-                <button id="stop"><img src="images/Stop.png" alt="Stop"></button>
-                <button id="step"><img src="images/Step.png" alt="Step"></button>
-                <button id="docs"><img src="images/Docs.png" alt="Docs"></button>
+                <button id="load">
+                    <img src="images/Load.png" alt="Load">
+                </button>    
+                <button id="run">
+                    <img src="images/Run.png" alt="Run">
+                </button>
+                <button id="stop">
+                    <img src="images/Stop.png" alt="Stop">
+                </button>
+                <button id="step">
+                    <img src="images/Step.png" alt="Step">
+                </button>
+                <button id="docs">
+                    <img src="images/Docs.png" alt="Docs">
+                </button>
             </div>
-        </section>
+        </nav>
         <section id="notepad"></section>
         <section id="io">
             <div id="registers">
-                <label for="counter">Program Counter</label>
+                <p>Program Counter</p>
                 <span id="counter">0</span>
-                <label for="accum">Accumulator</label>
+                <p>Accumulator</p>
                 <span id="accum">0</span>
-                <label for="clock">Clock Speed (250-1000)</label>
-                <input type="range" name="clock" id="clock" min="250" max="1000"
-                    value="250">
+                <label for="clock">Clock Frequency (250-1000)</label>
+                <input type="range" id="clock" min="250" max="1000">
             </div>
             <div>
                 <span>Input</span>
@@ -42,7 +54,7 @@
             </div>
         </section>
         <section id="memory"></section>
-        <section id="console"></section>
-    </section>
+        <footer id="console"></footer>
+    </main>
 </body>
 </html>

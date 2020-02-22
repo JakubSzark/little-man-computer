@@ -1,61 +1,72 @@
-$bg-color: #333232;
-$dark: rgba(0, 0, 0, 0.1);
-$darker: rgba(0, 0, 0, 0.2);
-$darkest: rgba(0, 0, 0, 0.3);
-$darkestest: rgba(0, 0, 0, 0.4);
+$sectionColor: #252021;
+$containerColor: #1f1b1c;
+$darkest: #536271;
+$darkestest: #a68ba5;
+
 $activeColor: rgba(0, 0, 255, 0.4);
+
+$defaultFontSize: 1.5rem;
+
+$bg-color: #191516;
+
+@mixin center-flex() {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 * {
     font-family: 'Fira Sans', monospace;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 body {
-    margin: 0;
     height: 100vh;
 
-    display: flex;
+    @include center-flex();
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 
-    background-color: $bg-color;
+    background: $bg-color;
     color: white;
 
     scrollbar-width: thin;
-    scrollbar-color: $dark $darkest;
+    scrollbar-color: $sectionColor $containerColor;
 
     margin-left: auto;
     margin-right: auto;
+}
+
+main 
+{
+    display: grid;
+    grid-template-columns: 25vw auto auto;
+    grid-template-rows: 5vh auto 5vh;
+    height: 95vh;
+    gap: 15px;
+
+    section, nav, footer 
+    {
+        background: $sectionColor;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 
+                    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
 }
 
 // ====================================
 // TITLE BAR
 // ====================================
 
-#littleman {
-    display: grid;
-    grid-template-columns: 25vw auto auto;
-    grid-template-rows: 5vh auto 5vh;
-    height: 85vh;
-    gap: 15px;
-
-    section {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 
-                    0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
-}
-
-#title-bar {
+nav {
     display: grid;
     grid-template-columns: 25% 25% auto;
     grid-column-start: 1;
     grid-column-end: 4;
 
     p {
-        background: $darker;
         display: block;
         height: 100%;
-        margin: 0;
         display: flex;
         align-items: center;
     }
@@ -63,11 +74,8 @@ body {
     #title {
         display: flex;
         align-items: center;
-        text-align: left;
-        background: $darker;
         height: 100%;
-        margin: 0;
-        font-size: 150%;
+        font-size: $defaultFontSize;
         padding-left: 25px;
         text-decoration: underline;
     }
@@ -75,23 +83,23 @@ body {
 
 #controls {
     width: 100%;
-    background: $darker;
     display: flex;
     justify-content: right;
     
     button, a {
         width: 50%;
-        background: $darkest;
+        background: $containerColor;
         color: white;
-        border: 0;
         max-width: 64px;
         margin-left: 15px;
+        transition: background 0.1s;
 
         img {
             width: 32px;
         }
 
         &:hover {
+            transition: background 0.1s;
             background: $darkestest;
             font-weight: bold;
             cursor: pointer;
@@ -104,8 +112,6 @@ body {
 // ====================================
 
 #notepad {
-    padding-top: 10px;
-    background: $darker;
     width: 100%;
     overflow-y: scroll;
     max-height: 80vh;
@@ -118,36 +124,34 @@ body {
     
     span {
         display: inline-block;
-        font-size: 28px;
+        font-size: $defaultFontSize;
         text-align: center;
-        background: $darker;
+        background: $containerColor;
     }
 }
 
 .line-input {
     background: none;
-    border: 0;
-    font-size: 28px;
-    margin: 0;
-    padding: 0;
+    font-size: $defaultFontSize;
     caret-color: white;
     color: white;
     tab-size: 4;
     padding-left: 10px;
 
     &:hover, &:focus {
-        background: $dark;
+        background: $sectionColor;
     }
 }
 
 #console {
-    background: $darker;
     grid-column-start: 1;
     grid-column-end: 4;
-    display: flex;
-    align-items: center;
+
+    @include center-flex();
+
     padding-left: 25px;
     padding-right: 25px;
+    font-weight: bold;
     color: red;
 }
 
@@ -156,23 +160,21 @@ body {
 // ====================================
 
 #io {
-    background: $dark;
-    width: 15vw;
-
     display: grid;
     grid-template-rows: 33.33% 33.33% 33.33%;
+    width: 15vw;
 
+    
     div {
-        background: $dark;
+        background: $containerColor;
         align-self: center;
-        border: 1px solid black;
         height: 100%;
     }
 
     span {
         display: inline-block;
-        font-size: 24px;
-        background: $dark;
+        font-size: $defaultFontSize;
+        background: $sectionColor;
         width: 100%;
         height: 32px;
         text-align: center;
@@ -180,7 +182,7 @@ body {
 
     p {
         margin: 10px;
-        font-size: 24px;
+        font-size: $defaultFontSize;
     }
 }
 
@@ -203,7 +205,6 @@ body {
 
 #memory {
     width: 100%;
-    background: $dark;
     display: grid;
     grid-template-columns: repeat(10, 4.5vw);
     grid-template-rows: repeat(10, auto);
@@ -220,7 +221,6 @@ body {
     max-width: 5vw;
 
     span {
-        background: $dark;
         font-weight: bold;
         display: inline-block;
         text-align: center;
@@ -229,8 +229,8 @@ body {
 
     div {
         text-align: center;
-        background: $darker;
-        font-size: 150%;
+        background: $containerColor;
+        font-size: $defaultFontSize;
         max-width: 5vw;
         overflow: hidden;
     }

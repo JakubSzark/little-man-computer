@@ -360,7 +360,14 @@ let pc = document.getElementById('counter');
  * Log a message to the console box
  * @param msg Message to add
  */
-const log = (msg: string) => consoleBox?.append(msg + '\n');
+const log = (msg: string, err: boolean) => 
+{
+    if (consoleBox != null) 
+    {
+        consoleBox.style.color = err ? "red" : "white";
+        consoleBox.innerHTML = msg;
+    }
+}
 
 function setActiveCell(index: number)
 {
@@ -406,6 +413,7 @@ function resetComputer()
     if (outputBox != null) outputBox.innerHTML = "";
     
     setActiveCell(0);
+    log ("Computer has reset!", false);
 }
 
 function stepComputer()
@@ -428,7 +436,7 @@ function stepComputer()
         if (outputBox != null) 
             outputBox.innerHTML += out.toString() + "\n";
     }, 
-    () => log("PROGRAM HALTED!"));
+    () => log("Program has Halted!", true));
 
     updateRegisters();
 }
@@ -511,6 +519,10 @@ function createLine(index: number): HTMLInputElement | null
 
         // Down Arrow
         if (event.keyCode == 40) { focusLine(lineNum + 1); }
+
+        // Make comments different color
+        let isComment = input.value.search('#') != -1;
+        input.style.color = isComment ? "cyan" : "white";
     });
 
     updateLineNumbers();
@@ -583,9 +595,18 @@ document.getElementById('load')
         if (!isEmptyOrComment(lineElems[i].value))
             lines.push(lineElems[i].value);
 
-    let program = parse(lines, err => log(err));
+    let errorOccured = false;
+    let program = parse(lines, err => 
+    {
+        log(err, true);
+        errorOccured = true;
+    });
+
     load(program);
     updateRegisters();
+
+    if (!errorOccured)
+        log("Program Loaded Successfully!", false);
 });
 
 document.getElementById('run')
@@ -596,13 +617,15 @@ document.getElementById('run')
     stepComputer();
     runningHandle = setInterval(() => stepComputer(), 
         state.clockSpeed);
+
+    log("Program Running...", false);
 });
 
 document.getElementById('stop')
     ?.addEventListener('click', () =>
 {
     clearInterval(runningHandle);
-    halt(() => log("PROGRAM HALTED!"));
+    halt(() => log("Program has Halted!", true));
 });
 
 document.getElementById('step')
@@ -614,7 +637,7 @@ document.getElementById('step')
 
 document.getElementById('docs')
     ?.addEventListener('click', () => {
-    window.location.href = "https://github.com/JakubSzark/jakubs-little-man-computer";
+    window.open("https://github.com/JakubSzark/jakubs-little-man-computer", "_blank");
 });
 
 document.getElementById('clock')

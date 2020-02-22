@@ -279,7 +279,12 @@ let pc = document.getElementById('counter');
  * Log a message to the console box
  * @param msg Message to add
  */
-const log = (msg) => { var _a; return (_a = consoleBox) === null || _a === void 0 ? void 0 : _a.append(msg + '\n'); };
+const log = (msg, err) => {
+    if (consoleBox != null) {
+        consoleBox.style.color = err ? "red" : "white";
+        consoleBox.innerHTML = msg;
+    }
+};
 function setActiveCell(index) {
     var mems = document.getElementsByClassName('mem-cell');
     var active = document.getElementsByClassName('active-cell');
@@ -316,6 +321,7 @@ function resetComputer() {
     if (outputBox != null)
         outputBox.innerHTML = "";
     setActiveCell(0);
+    log("Computer has reset!", false);
 }
 function stepComputer() {
     step(() => {
@@ -329,7 +335,7 @@ function stepComputer() {
     }, out => {
         if (outputBox != null)
             outputBox.innerHTML += out.toString() + "\n";
-    }, () => log("PROGRAM HALTED!"));
+    }, () => log("Program has Halted!", true));
     updateRegisters();
 }
 function updateLineNumbers() {
@@ -394,6 +400,9 @@ function createLine(index) {
         if (event.keyCode == 40) {
             focusLine(lineNum + 1);
         }
+        // Make comments different color
+        let isComment = input.value.search('#') != -1;
+        input.style.color = isComment ? "cyan" : "white";
     });
     updateLineNumbers();
     return input;
@@ -446,19 +455,26 @@ window.addEventListener('unload', () => {
     for (let i = 0; i < lineElems.length; i++)
         if (!isEmptyOrComment(lineElems[i].value))
             lines.push(lineElems[i].value);
-    let program = parse(lines, err => log(err));
+    let errorOccured = false;
+    let program = parse(lines, err => {
+        log(err, true);
+        errorOccured = true;
+    });
     load(program);
     updateRegisters();
+    if (!errorOccured)
+        log("Program Loaded Successfully!", false);
 });
 (_b = document.getElementById('run')) === null || _b === void 0 ? void 0 : _b.addEventListener('click', () => {
     if (state.programHalted)
         return;
     stepComputer();
     runningHandle = setInterval(() => stepComputer(), state.clockSpeed);
+    log("Program Running...", false);
 });
 (_c = document.getElementById('stop')) === null || _c === void 0 ? void 0 : _c.addEventListener('click', () => {
     clearInterval(runningHandle);
-    halt(() => log("PROGRAM HALTED!"));
+    halt(() => log("Program has Halted!", true));
 });
 (_d = document.getElementById('step')) === null || _d === void 0 ? void 0 : _d.addEventListener('click', () => {
     if (state.programHalted)
@@ -466,7 +482,7 @@ window.addEventListener('unload', () => {
     stepComputer();
 });
 (_e = document.getElementById('docs')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', () => {
-    window.location.href = "https://github.com/JakubSzark/jakubs-little-man-computer";
+    window.open("https://github.com/JakubSzark/jakubs-little-man-computer", "_blank");
 });
 (_f = document.getElementById('clock')) === null || _f === void 0 ? void 0 : _f.addEventListener('change', () => {
     var clock = document.getElementById('clock');
