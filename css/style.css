@@ -22,43 +22,50 @@ body {
   color: white;
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.3);
+  margin-left: auto;
+  margin-right: auto;
 }
 
-#controls {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+#littleman {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 25vw auto auto;
+      grid-template-columns: 25vw auto auto;
+  -ms-grid-rows: 5vh auto 5vh;
+      grid-template-rows: 5vh auto 5vh;
+  height: 85vh;
+  gap: 15px;
 }
 
-#controls button, #controls a {
-  width: 50%;
-  background: rgba(0, 0, 0, 0.3);
-  color: white;
-  border: 0;
-}
-
-#controls button img, #controls a img {
-  width: 32px;
-}
-
-#controls button:hover, #controls a:hover {
-  background: rgba(0, 0, 0, 0.4);
-  font-weight: bold;
-  cursor: pointer;
+#littleman section {
+  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #title-bar {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 75% auto;
-      grid-template-columns: 75% auto;
+  -ms-grid-columns: 25% 25% auto;
+      grid-template-columns: 25% 25% auto;
   -ms-grid-column: 1;
       grid-column-start: 1;
   grid-column-end: 4;
 }
 
-#title {
+#title-bar p {
+  background: rgba(0, 0, 0, 0.2);
+  display: block;
+  height: 100%;
+  margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#title-bar #title {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -74,14 +81,34 @@ body {
   text-decoration: underline;
 }
 
-#littleman {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 25vw auto auto;
-      grid-template-columns: 25vw auto auto;
-  -ms-grid-rows: 5vh auto 5vh;
-      grid-template-rows: 5vh auto 5vh;
-  height: 85vh;
+#controls {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: right;
+      -ms-flex-pack: right;
+          justify-content: right;
+}
+
+#controls button, #controls a {
+  width: 50%;
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  border: 0;
+  max-width: 64px;
+  margin-left: 15px;
+}
+
+#controls button img, #controls a img {
+  width: 32px;
+}
+
+#controls button:hover, #controls a:hover {
+  background: rgba(0, 0, 0, 0.4);
+  font-weight: bold;
+  cursor: pointer;
 }
 
 #notepad {
@@ -111,7 +138,6 @@ body {
   background: none;
   border: 0;
   font-size: 28px;
-  width: 100%;
   margin: 0;
   padding: 0;
   caret-color: white;
@@ -119,6 +145,7 @@ body {
   -moz-tab-size: 4;
     -o-tab-size: 4;
        tab-size: 4;
+  padding-left: 10px;
 }
 
 .line-input:hover, .line-input:focus {
@@ -186,20 +213,17 @@ body {
           justify-content: space-evenly;
 }
 
-#registers #console {
-  width: 100%;
-  color: red;
-}
-
 #memory {
-  width: 50vw;
+  width: 100%;
   background: rgba(0, 0, 0, 0.1);
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (auto)[10];
-      grid-template-columns: repeat(10, auto);
+  -ms-grid-columns: (4.5vw)[10];
+      grid-template-columns: repeat(10, 4.5vw);
   -ms-grid-rows: (auto)[10];
       grid-template-rows: repeat(10, auto);
+  max-width: 50vw;
+  gap: 5px;
 }
 
 .mem-cell {
@@ -209,6 +233,7 @@ body {
   display: grid;
   -ms-grid-rows: 25% 75%;
       grid-template-rows: 25% 75%;
+  max-width: 5vw;
 }
 
 .mem-cell span {
@@ -222,7 +247,9 @@ body {
 .mem-cell div {
   text-align: center;
   background: rgba(0, 0, 0, 0.2);
-  font-size: 24px;
+  font-size: 150%;
+  max-width: 5vw;
+  overflow: hidden;
 }
 
 .active-cell {

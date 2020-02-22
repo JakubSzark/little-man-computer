@@ -23,21 +23,69 @@ body {
 
     scrollbar-width: thin;
     scrollbar-color: $dark $darkest;
+
+    margin-left: auto;
+    margin-right: auto;
 }
 
 // ====================================
 // TITLE BAR
 // ====================================
 
+#littleman {
+    display: grid;
+    grid-template-columns: 25vw auto auto;
+    grid-template-rows: 5vh auto 5vh;
+    height: 85vh;
+    gap: 15px;
+
+    section {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 
+                    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+}
+
+#title-bar {
+    display: grid;
+    grid-template-columns: 25% 25% auto;
+    grid-column-start: 1;
+    grid-column-end: 4;
+
+    p {
+        background: $darker;
+        display: block;
+        height: 100%;
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    #title {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        background: $darker;
+        height: 100%;
+        margin: 0;
+        font-size: 150%;
+        padding-left: 25px;
+        text-decoration: underline;
+    }
+}
+
 #controls {
     width: 100%;
+    background: $darker;
     display: flex;
+    justify-content: right;
     
     button, a {
         width: 50%;
         background: $darkest;
         color: white;
         border: 0;
+        max-width: 64px;
+        margin-left: 15px;
 
         img {
             width: 32px;
@@ -51,31 +99,7 @@ body {
     }
 }
 
-#title-bar {
-    display: grid;
-    grid-template-columns: 75% auto;
-    grid-column-start: 1;
-    grid-column-end: 4;
-}
 
-#title {
-    display: flex;
-    align-items: center;
-    text-align: left;
-    background: $darker;
-    height: 100%;
-    margin: 0;
-    font-size: 150%;
-    padding-left: 25px;
-    text-decoration: underline;
-}
-
-#littleman {
-    display: grid;
-    grid-template-columns: 25vw auto auto;
-    grid-template-rows: 5vh auto 5vh;
-    height: 85vh;
-}
 
 // ====================================
 // NOTEPAD
@@ -106,12 +130,12 @@ body {
     background: none;
     border: 0;
     font-size: 28px;
-    width: 100%;
     margin: 0;
     padding: 0;
     caret-color: white;
     color: white;
     tab-size: 4;
+    padding-left: 10px;
 
     &:hover, &:focus {
         background: $dark;
@@ -166,11 +190,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-
-    #console {
-        width: 100%;
-        color: red;
-    }
 }
 
 // ====================================
@@ -178,11 +197,13 @@ body {
 // ====================================
 
 #memory {
-    width: 50vw;
+    width: 100%;
     background: $dark;
     display: grid;
-    grid-template-columns: repeat(10, auto);
+    grid-template-columns: repeat(10, 4.5vw);
     grid-template-rows: repeat(10, auto);
+    max-width: 50vw;
+    gap: 5px;
 }
 
 .mem-cell {
@@ -191,6 +212,7 @@ body {
 
     display: grid;
     grid-template-rows: 25% 75%;
+    max-width: 5vw;
 
     span {
         background: $dark;
@@ -203,7 +225,9 @@ body {
     div {
         text-align: center;
         background: $darker;
-        font-size: 24px;
+        font-size: 150%;
+        max-width: 5vw;
+        overflow: hidden;
     }
 }
 

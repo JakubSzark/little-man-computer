@@ -7,7 +7,16 @@
  * [Credit]: Dr. Stuart Madnick
  * [Wiki]: https://en.wikipedia.org/wiki/Little_man_computer
 */
-var _a, _b, _c, _d, _e;
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var _a, _b, _c, _d, _e, _f;
 // Standard OP Codes for LMC
 const operationCodes = {
     "INP": 901,
@@ -387,7 +396,8 @@ function createLine(index) {
     return input;
 }
 // EVENTS
-window.onload = () => {
+window.onload = () => __awaiter(void 0, void 0, void 0, function* () {
+    // Create memory cells
     for (let i = 0; i < 100; i++) {
         const cell = document.createElement('div');
         const cellNum = document.createElement('span');
@@ -402,6 +412,7 @@ window.onload = () => {
             memory.append(cell);
         cells.push(cellMem);
     }
+    // Get lines from storage if page refreshes
     for (let i = 0; i < 99; i++) {
         let storedLine = localStorage.getItem(`line${i}`);
         if (storedLine != null) {
@@ -414,7 +425,7 @@ window.onload = () => {
     localStorage.clear();
     if (notepad != undefined && notepad.children.length == 0)
         createLine(0);
-};
+});
 window.addEventListener('unload', () => {
     let lineElems = document
         .getElementsByClassName('line-input');
@@ -456,4 +467,8 @@ window.addEventListener('unload', () => {
 });
 (_e = document.getElementById('docs')) === null || _e === void 0 ? void 0 : _e.addEventListener('click', () => {
     window.location.href = "https://github.com/JakubSzark/jakubs-little-man-computer";
+});
+(_f = document.getElementById('clock')) === null || _f === void 0 ? void 0 : _f.addEventListener('change', () => {
+    var clock = document.getElementById('clock');
+    console.log(clock.valueAsNumber);
 });

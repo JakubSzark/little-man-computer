@@ -616,3 +616,10 @@ document.getElementById('docs')
     ?.addEventListener('click', () => {
     window.location.href = "https://github.com/JakubSzark/jakubs-little-man-computer";
 });
+
+document.getElementById('clock')
+    ?.addEventListener('change', () =>
+{
+    var clock = <HTMLInputElement>document.getElementById('clock');
+    state.clockSpeed = clock.valueAsNumber;
+});
