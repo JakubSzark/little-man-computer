@@ -9,12 +9,9 @@
     <title>Little Man Computer</title>
 </head>
 <body>
-    <h1 id="title">Jakub's Little Man Computer</h1>
     <section id="littleman">
-        <section id="editor">
-            <div id="notepad">
-
-            </div>
+        <section id="title-bar">
+            <h1 id="title">Little Man Computer</h1>
             <div id="controls">
                 <button id="load"><img src="images/Load.png"></button><br>
                 <button id="run"><img src="images/Run.png"></button>
@@ -23,14 +20,13 @@
                 <button id="docs"><img src="images/Docs.png"></button>
             </div>
         </section>
+        <div id="notepad"></div>
         <section id="io">
             <div id="registers">
                 <label for="counter">Program Counter</label>
                 <span id="counter">0</span>
                 <label for="accum">Accumulator</label>
                 <span id="accum">0</span>
-                <label for="console">Console</label>
-                <div id="console"></div>
             </div>
             <div>
                 <span>Input</span>
@@ -42,6 +38,7 @@
             </div>
         </section>
         <section id="memory"></section>
+        <section id="console"></section>
     </section>
 </body>
 </html>

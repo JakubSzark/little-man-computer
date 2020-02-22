@@ -514,8 +514,9 @@ function createLine(index: number): HTMLInputElement | null
 
 // EVENTS
 
-window.onload = () =>
+window.onload = async () =>
 {
+    // Create memory cells
     for (let i = 0; i < 100; i++)
     {
         const cell = document.createElement('div');
@@ -534,6 +535,7 @@ window.onload = () =>
         cells.push(cellMem);
     }
 
+    // Get lines from storage if page refreshes
     for (let i = 0; i < 99; i++)
     {
         let storedLine = localStorage.getItem(`line${i}`);

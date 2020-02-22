@@ -20,62 +20,8 @@ body {
           align-items: center;
   background-color: #333232;
   color: white;
-}
-
-#littleman {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: auto auto auto;
-      grid-template-columns: auto auto auto;
-  height: 85vh;
-}
-
-#editor {
-  height: 100%;
-  -ms-grid-rows: 90% 10%;
-      grid-template-rows: 90% 10%;
-  display: -ms-grid;
-  display: grid;
-}
-
-#notepad {
-  background: rgba(0, 0, 0, 0.2);
-  width: 100%;
-  overflow-y: scroll;
-  max-height: 80vh;
-}
-
-.line {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 15% auto;
-      grid-template-columns: 15% auto;
-  width: 100%;
-}
-
-.line span {
-  display: inline-block;
-  font-size: 32px;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.2);
-}
-
-.line-input {
-  background: none;
-  border: 0;
-  font-size: 32px;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  caret-color: white;
-  color: white;
-  -moz-tab-size: 4;
-    -o-tab-size: 4;
-       tab-size: 4;
-}
-
-.line-input:hover, .line-input:focus {
-  background: rgba(0, 0, 0, 0.1);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.3);
 }
 
 #controls {
@@ -93,7 +39,7 @@ body {
 }
 
 #controls button img, #controls a img {
-  width: 48px;
+  width: 32px;
 }
 
 #controls button:hover, #controls a:hover {
@@ -102,19 +48,106 @@ body {
   cursor: pointer;
 }
 
-#io {
-  background: rgba(0, 0, 0, 0.1);
-  width: 15vw;
+#title-bar {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 75% auto;
+      grid-template-columns: 75% auto;
+  -ms-grid-column: 1;
+      grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+#title {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: left;
+  background: rgba(0, 0, 0, 0.2);
+  height: 100%;
+  margin: 0;
+  font-size: 150%;
+  padding-left: 25px;
+  text-decoration: underline;
+}
+
+#littleman {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 25vw auto auto;
+      grid-template-columns: 25vw auto auto;
+  -ms-grid-rows: 5vh auto 5vh;
+      grid-template-rows: 5vh auto 5vh;
+  height: 85vh;
+}
+
+#notepad {
+  padding-top: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  overflow-y: scroll;
+  max-height: 80vh;
+}
+
+.line {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 15% auto;
+      grid-template-columns: 15% auto;
+  width: 100%;
+}
+
+.line span {
+  display: inline-block;
+  font-size: 28px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.line-input {
+  background: none;
+  border: 0;
+  font-size: 28px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  caret-color: white;
+  color: white;
+  -moz-tab-size: 4;
+    -o-tab-size: 4;
+       tab-size: 4;
+}
+
+.line-input:hover, .line-input:focus {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+#console {
+  background: rgba(0, 0, 0, 0.2);
+  -ms-grid-column: 1;
+      grid-column-start: 1;
+  grid-column-end: 4;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-left: 25px;
+  padding-right: 25px;
+  color: red;
+}
+
+#io {
+  background: rgba(0, 0, 0, 0.1);
+  width: 15vw;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 33.33% 33.33% 33.33%;
+      grid-template-rows: 33.33% 33.33% 33.33%;
 }
 
 #io div {
@@ -122,8 +155,7 @@ body {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
-  width: 94%;
-  height: 32%;
+  height: 100%;
 }
 
 #io span {
@@ -173,25 +205,27 @@ body {
 .mem-cell {
   width: 100%;
   height: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 25% 75%;
+      grid-template-rows: 25% 75%;
 }
 
 .mem-cell span {
   background: rgba(0, 0, 0, 0.1);
   font-weight: bold;
   display: inline-block;
-  width: 100%;
   text-align: center;
-  height: 25%;
+  width: 100%;
 }
 
 .mem-cell div {
   text-align: center;
   background: rgba(0, 0, 0, 0.2);
-  height: 75%;
   font-size: 24px;
 }
 
 .active-cell {
-  background-color: rgba(0, 0, 255, 0.2);
+  background-color: rgba(0, 0, 255, 0.4);
 }
 /*# sourceMappingURL=style.css.map */
