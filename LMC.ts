@@ -127,7 +127,7 @@ function parse(lines: string[],
     for (let i = 0; i < lines.length; i++)
     {
         // Ignore empty lines
-        if (/^\s*$/.test(lines[i]) || lines[i].includes('#')) 
+        if (isEmptyOrComment(lines[i])) 
             continue;
 
         let code: number = 0; // Resulting Operation Token
@@ -392,6 +392,10 @@ function updateRegisters()
     setActiveCell(state.programCounter);
 }
 
+function isEmptyOrComment(text: string): boolean {
+    return /^\s*$/.test(text) || text.includes('#');
+}
+
 function resetComputer()
 {
     reset();
@@ -432,6 +436,7 @@ function stepComputer()
 function updateLineNumbers()
 {
     let lines = document.getElementsByClassName('line');
+
     for (let i = 0; i < lines.length; i++)
     {
         let num = i.toString();
@@ -575,13 +580,8 @@ document.getElementById('load')
 
     // Remove all empty lines and comments
     for (let i = 0; i < lineElems.length; i++)
-    {
-        if (!(/^\s*$/.test(lineElems[i].value) || 
-            lineElems[i].value.includes('#')))
-        {
+        if (!isEmptyOrComment(lineElems[i].value))
             lines.push(lineElems[i].value);
-        }
-    }
 
     let program = parse(lines, err => log(err));
     load(program);

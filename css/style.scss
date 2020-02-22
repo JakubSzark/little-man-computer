@@ -99,8 +99,6 @@ body {
     }
 }
 
-
-
 // ====================================
 // NOTEPAD
 // ====================================
@@ -167,6 +165,7 @@ body {
     div {
         background: $dark;
         align-self: center;
+        border: 1px solid black;
         height: 100%;
     }
 
@@ -190,6 +189,12 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+
+    input {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
 
 // ====================================

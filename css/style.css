@@ -182,6 +182,7 @@ body {
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
+  border: 1px solid black;
   height: 100%;
 }
 
@@ -211,6 +212,12 @@ body {
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
+}
+
+#registers input {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #memory {

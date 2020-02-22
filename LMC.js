@@ -86,7 +86,7 @@ function parse(lines, callback) {
     // Parse instructions and store them
     for (let i = 0; i < lines.length; i++) {
         // Ignore empty lines
-        if (/^\s*$/.test(lines[i]) || lines[i].includes('#'))
+        if (isEmptyOrComment(lines[i]))
             continue;
         let code = 0; // Resulting Operation Token
         // We extract tokens
@@ -303,6 +303,9 @@ function updateRegisters() {
     // Set the Active Cell
     setActiveCell(state.programCounter);
 }
+function isEmptyOrComment(text) {
+    return /^\s*$/.test(text) || text.includes('#');
+}
 function resetComputer() {
     reset();
     console.clear();
@@ -440,12 +443,9 @@ window.addEventListener('unload', () => {
         .getElementsByClassName('line-input');
     let lines = [];
     // Remove all empty lines and comments
-    for (let i = 0; i < lineElems.length; i++) {
-        if (!(/^\s*$/.test(lineElems[i].value) ||
-            lineElems[i].value.includes('#'))) {
+    for (let i = 0; i < lineElems.length; i++)
+        if (!isEmptyOrComment(lineElems[i].value))
             lines.push(lineElems[i].value);
-        }
-    }
     let program = parse(lines, err => log(err));
     load(program);
     updateRegisters();
@@ -470,5 +470,5 @@ window.addEventListener('unload', () => {
 });
 (_f = document.getElementById('clock')) === null || _f === void 0 ? void 0 : _f.addEventListener('change', () => {
     var clock = document.getElementById('clock');
-    console.log(clock.valueAsNumber);
+    state.clockSpeed = clock.valueAsNumber;
 });
