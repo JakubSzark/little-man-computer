@@ -5,7 +5,7 @@ This is a clone of the little man computer made by: Dr. Stuart Madnick
 - Based off: https://www.101computing.net/LMC/
 - Wikipedia: https://en.wikipedia.org/wiki/Little_man_computer
 
-<img src="https://i.imgur.com/AWhz3zx.png">
+<img src="https://i.imgur.com/LpGN84E.png">
 
 # Differences
 - Using $ for address arguments
