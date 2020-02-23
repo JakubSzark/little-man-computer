@@ -6,6 +6,7 @@
 }
 
 body {
+  width: 100vw;
   height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -16,16 +17,10 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
   background: #191516;
   color: white;
   scrollbar-width: thin;
   scrollbar-color: #252021 #1f1b1c;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 main {
@@ -39,7 +34,7 @@ main {
   gap: 15px;
 }
 
-main section, main nav, main footer {
+main section, main nav, main footer, main #controls button {
   background: #252021;
   -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -48,11 +43,11 @@ main section, main nav, main footer {
 nav {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 25% 25% auto;
-      grid-template-columns: 25% 25% auto;
+  -ms-grid-columns: 50% 50%;
+      grid-template-columns: 50% 50%;
   -ms-grid-column: 1;
       grid-column-start: 1;
-  grid-column-end: 4;
+  grid-column-end: 3;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: none;
 }
@@ -90,16 +85,20 @@ nav #title {
       -ms-flex-pack: right;
           justify-content: right;
   background: none;
+  -ms-grid-column: 3;
+      grid-column-start: 3;
+  grid-column-end: 4;
 }
 
 #controls button, #controls a {
   width: 50%;
-  background: #1f1b1c;
+  background: #252021;
   color: white;
   max-width: 64px;
   margin-left: 15px;
   -webkit-transition: background 0.1s;
   transition: background 0.1s;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 #controls button img, #controls a img {
@@ -148,7 +147,7 @@ nav #title {
 }
 
 .line-input:hover, .line-input:focus {
-  background: #252021;
+  background: #1f1b1c;
 }
 
 #console {
